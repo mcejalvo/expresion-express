@@ -1,0 +1,137 @@
+[gd_scene load_steps=14 format=3 uid="uid://boeg4umrhrbyr"]
+
+[ext_resource type="Script" uid="uid://b0e4c5f6hh68u" path="res://scenes/display.gd" id="1_elqb8"]
+[ext_resource type="Texture2D" uid="uid://cbac4jsljtkga" path="res://resources/logo_variation.png" id="1_jlsqs"]
+[ext_resource type="Theme" uid="uid://dikwxn17ry3o2" path="res://resources/display_theme.tres" id="1_rvslj"]
+[ext_resource type="Texture2D" uid="uid://bkpylhu4lr1lg" path="res://resources/timer_button.png" id="4_jlsqs"]
+[ext_resource type="Script" uid="uid://centfsfmcaigx" path="res://scenes/button_timer.gd" id="4_rarhs"]
+[ext_resource type="Texture2D" uid="uid://d36ye2ecdfun" path="res://resources/timer_button_pressed.png" id="5_jlsqs"]
+[ext_resource type="AudioStream" uid="uid://d12ht3dncg4bs" path="res://assets/sound/399117__fastson__bultklick_01.wav" id="6_nxtc6"]
+[ext_resource type="Script" uid="uid://dvd5b7vmsow41" path="res://scenes/pass_word.gd" id="7_jlsqs"]
+[ext_resource type="Script" uid="uid://tpm4h20a3g65" path="res://scenes/timer_label.gd" id="7_q8u5g"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0bbpv"]
+bg_color = Color(0.91228896, 0.9122889, 0.91228884, 1)
+
+[sub_resource type="Theme" id="Theme_elqb8"]
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_0bbpv")
+
+[sub_resource type="SystemFont" id="SystemFont_elqb8"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_elqb8"]
+font = SubResource("SystemFont_elqb8")
+font_size = 40
+font_color = Color(0.06879827, 0.06879828, 0.06879828, 1)
+
+[node name="Game" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="Background" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.24705882, 0.25882354, 0.67058825, 1)
+
+[node name="LabelPanelContainer" type="PanelContainer" parent="CanvasLayer"]
+clip_contents = true
+anchors_preset = -1
+anchor_left = 0.356
+anchor_top = 0.342
+anchor_right = 0.851
+anchor_bottom = 0.47200003
+offset_left = 0.3999939
+offset_top = 0.19998169
+offset_right = 0.3999939
+offset_bottom = 0.19998169
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("1_rvslj")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/LabelPanelContainer"]
+clip_contents = true
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 2
+
+[node name="wordLabel" type="Label" parent="CanvasLayer/LabelPanelContainer/MarginContainer"]
+layout_mode = 2
+theme = SubResource("Theme_elqb8")
+theme_override_font_sizes/font_size = 40
+label_settings = SubResource("LabelSettings_elqb8")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("1_elqb8")
+
+[node name="ButtonTimer Container" type="AspectRatioContainer" parent="CanvasLayer"]
+custom_minimum_size = Vector2(0, 300)
+anchors_preset = -1
+anchor_top = 0.66560006
+anchor_right = 0.5575334
+anchor_bottom = 1.0
+offset_top = 0.95996094
+offset_right = -0.52001953
+grow_horizontal = 0
+grow_vertical = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/ButtonTimer Container"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="ButtonTimer" type="TextureButton" parent="CanvasLayer/ButtonTimer Container/MarginContainer"]
+layout_mode = 2
+action_mode = 0
+texture_normal = ExtResource("4_jlsqs")
+texture_pressed = ExtResource("5_jlsqs")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("4_rarhs")
+metadata/_edit_use_anchors_ = true
+
+[node name="LabelContainer" type="AspectRatioContainer" parent="CanvasLayer/ButtonTimer Container/MarginContainer/ButtonTimer"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.246
+anchor_top = 0.384
+anchor_right = 0.76900005
+anchor_bottom = 0.61200005
+grow_horizontal = 2
+grow_vertical = 2
+stretch_mode = 1
+
+[node name="TimerLabel" type="Label" parent="CanvasLayer/ButtonTimer Container/MarginContainer/ButtonTimer/LabelContainer"]
+layout_direction = 2
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 30
+text = "Empezar"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("7_q8u5g")
+
+[node name="LogoContainer" type="AspectRatioContainer" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="LogoDrawing" type="Sprite2D" parent="CanvasLayer/LogoContainer"]
+z_index = 1
+position = Vector2(22.99997, 158)
+scale = Vector2(0.6635955, 0.6635957)
+texture = ExtResource("1_jlsqs")
+
+[node name="PassWord" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_nxtc6")
+volume_db = 5.0
+script = ExtResource("7_jlsqs")
